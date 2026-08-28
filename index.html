@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="지출결의, KOL 계약, 업무보고와 소셜 지표 도구를 한 화면에서 여는 피알원 업무 허브">
+  <meta property="og:title" content="피알원 업무 허브">
+  <meta property="og:description" content="지출결의 · KOL 계약 · 업무보고를 한 곳에서">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bruceheo0114.github.io/work_db/">
+  <meta property="og:image" content="https://bruceheo0114.github.io/work_db/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="피알원 업무 허브">
+  <meta name="twitter:description" content="지출결의 · KOL 계약 · 업무보고를 한 곳에서">
+  <meta name="twitter:image" content="https://bruceheo0114.github.io/work_db/og.png">
+  <title>피알원 업무 허브</title>
+  <style>
+    :root { --ink:#172033; --muted:#647087; --line:#dfe5ee; --paper:#f4f7fb; --navy:#17283f; --blue:#2869e6; --green:#15936b; --coral:#f06d55; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--paper); color:var(--ink); font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif; }
+    button, input { font:inherit; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline:3px solid rgba(40,105,230,.28); outline-offset:2px; }
+    .shell { display:grid; grid-template-columns:232px 1fr; min-height:100vh; }
+    .sidebar { position:sticky; top:0; height:100vh; padding:28px 20px; background:var(--navy); color:#fff; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:800; letter-spacing:-.02em; }
+    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:#fff; color:var(--navy); font-size:13px; }
+    .brand small { display:block; margin-top:3px; color:#aebbd0; font-size:10px; font-weight:600; letter-spacing:.08em; }
+    .nav { display:grid; gap:7px; margin-top:36px; }
+    .nav button { width:100%; padding:11px 12px; border:0; border-radius:10px; background:transparent; color:#c9d3e2; text-align:left; cursor:pointer; transition:.18s ease; }
+    .nav button:hover { background:rgba(255,255,255,.07); color:#fff; }
+    .nav button.active { background:rgba(255,255,255,.12); color:#fff; font-weight:750; }
+    .handoff-open { margin-top:18px; border:1px solid rgba(255,255,255,.16) !important; color:#fff !important; }
+    .side-note { position:absolute; right:20px; bottom:24px; left:20px; padding:13px; border:1px solid rgba(255,255,255,.12); border-radius:12px; color:#b8c5d6; font-size:11px; line-height:1.5; }
+    main { padding:34px clamp(22px,4vw,58px) 60px; }
+    .topline { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .eyebrow { margin:0 0 9px; color:var(--blue); font-size:12px; font-weight:800; letter-spacing:.1em; }
+    h1 { margin:0; font-size:clamp(30px,4vw,48px); letter-spacing:-.045em; line-height:1.08; }
+    .lead { max-width:650px; margin:14px 0 0; color:var(--muted); line-height:1.7; }
+    .header-tools { display:grid; justify-items:end; gap:12px; min-width:260px; }
+    .status { flex:none; padding:9px 13px; border:1px solid #cfe8dc; border-radius:999px; background:#eefaf4; color:#14734f; font-size:12px; font-weight:750; }
+    .search { position:relative; width:min(330px,100%); }
+    .search span { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#8490a3; }
+    .search input { width:100%; height:42px; padding:0 13px 0 37px; border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); outline:none; }
+    .search input:focus { border-color:#85aaf2; box-shadow:0 0 0 4px rgba(40,105,230,.09); }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-top:42px; }
+    h2 { margin:0; font-size:18px; letter-spacing:-.025em; }
+    .section-head p { margin:0; color:var(--muted); font-size:12px; }
+    .cards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; margin-top:15px; }
+    .card { position:relative; display:flex; min-height:218px; padding:19px; border:1px solid var(--line); border-radius:17px; background:#fff; box-shadow:0 8px 24px rgba(34,52,79,.05); flex-direction:column; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .card:hover { transform:translateY(-3px); border-color:#c9d7ee; box-shadow:0 15px 32px rgba(34,52,79,.1); }
+    .card.hidden { display:none; }
+    .card-icon { display:grid; place-items:center; width:42px; height:42px; border-radius:13px; background:#edf3ff; font-size:20px; }
+    .card:nth-child(2) .card-icon { background:#fff2ed; }
+    .card:nth-child(3) .card-icon { background:#eaf8f2; }
+    .card:nth-child(4) .card-icon { background:#f2edff; }
+    .card:nth-child(5) .card-icon { background:#fff5df; }
+    .card h3 { margin:18px 0 6px; font-size:16px; letter-spacing:-.02em; }
+    .card p { margin:0; color:var(--muted); font-size:12px; line-height:1.6; }
+    .favorite { position:absolute; top:16px; right:16px; width:32px; height:32px; padding:0; border:1px solid var(--line); border-radius:10px; background:#fff; color:#a6afbd; cursor:pointer; }
+    .favorite.on { border-color:#f2d38a; background:#fff9e8; color:#e49a0b; }
+    .card-actions { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:18px; }
+    .launch { padding:0; border:0; background:transparent; color:var(--blue); font-size:12px; font-weight:800; cursor:pointer; }
+    .source { color:#8a95a7; font-size:10.5px; text-decoration:none; }
+    .empty-state { display:none; margin-top:15px; padding:34px; border:1px dashed #c9d3e2; border-radius:16px; color:var(--muted); text-align:center; }
+    .workspace { overflow:hidden; margin-top:18px; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:0 12px 34px rgba(34,52,79,.06); }
+    .workspace-bar { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:62px; padding:12px 16px; border-bottom:1px solid var(--line); }
+    .workspace-title { display:flex; align-items:center; gap:10px; min-width:0; }
+    .workspace-title span { display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:#edf3ff; }
+    .workspace-title strong { display:block; overflow:hidden; font-size:14px; text-overflow:ellipsis; white-space:nowrap; }
+    .workspace-title small { display:block; margin-top:3px; color:var(--muted); font-size:10.5px; }
+    .workspace-actions { display:flex; gap:8px; }
+    .workspace-actions a, .workspace-actions button { min-height:34px; padding:0 12px; border:1px solid var(--line); border-radius:9px; background:#fff; color:#45546c; font-size:11px; font-weight:750; text-decoration:none; cursor:pointer; }
+    .workspace-actions a.primary { display:inline-flex; align-items:center; border-color:var(--blue); background:var(--blue); color:#fff; }
+    .workspace-home { display:grid; grid-template-columns:1.2fr .8fr; min-height:390px; }
+    .flow { padding:42px; background:linear-gradient(135deg,#f7faff,#edf3ff); }
+    .flow .kicker { color:var(--blue); font-size:11px; font-weight:850; letter-spacing:.08em; }
+    .flow h3 { max-width:530px; margin:12px 0 10px; font-size:27px; letter-spacing:-.035em; }
+    .flow > p { max-width:570px; margin:0; color:var(--muted); font-size:13px; line-height:1.7; }
+    .steps { display:grid; gap:10px; margin-top:28px; }
+    .step { display:flex; align-items:center; gap:12px; padding:13px 14px; border:1px solid rgba(40,105,230,.12); border-radius:12px; background:rgba(255,255,255,.7); font-size:12px; }
+    .step b { display:grid; place-items:center; width:25px; height:25px; border-radius:8px; background:var(--navy); color:#fff; font-size:10px; }
+    .quick { padding:30px; }
+    .quick h3 { margin:0 0 14px; font-size:14px; }
+    .quick-list { display:grid; gap:9px; }
+    .quick-list button { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px; border:1px solid var(--line); border-radius:11px; background:#fff; color:var(--ink); text-align:left; cursor:pointer; }
+    .quick-list button:hover { border-color:#9fb8e7; background:#f8faff; }
+    .quick-list small { color:var(--muted); }
+    .tool-frame { display:none; width:100%; height:min(74vh,880px); border:0; background:#fff; }
+    .download-panel { display:none; min-height:420px; padding:55px 24px; background:linear-gradient(135deg,#f8fbff,#f3f7ff); text-align:center; }
+    .download-panel .big-icon { display:grid; place-items:center; width:70px; height:70px; margin:0 auto 18px; border-radius:22px; background:#fff5df; font-size:32px; box-shadow:0 12px 24px rgba(34,52,79,.08); }
+    .download-panel h3 { margin:0; font-size:24px; letter-spacing:-.03em; }
+    .download-panel p { max-width:580px; margin:11px auto 22px; color:var(--muted); font-size:13px; line-height:1.7; }
+    .download-panel a { display:inline-flex; min-height:42px; padding:0 17px; align-items:center; border-radius:10px; background:var(--blue); color:#fff; font-size:12px; font-weight:800; text-decoration:none; }
+    .privacy-note { margin-top:20px; color:#8a95a7; font-size:10.5px; }
+    dialog { width:min(690px,calc(100vw - 30px)); padding:0; border:0; border-radius:20px; box-shadow:0 26px 80px rgba(16,31,54,.3); }
+    dialog::backdrop { background:rgba(10,21,38,.58); backdrop-filter:blur(5px); }
+    .dialog-head { display:flex; justify-content:space-between; gap:16px; padding:21px 23px; border-bottom:1px solid var(--line); }
+    .dialog-head h2 { font-size:18px; }
+    .dialog-head p { margin:5px 0 0; color:var(--muted); font-size:11.5px; }
+    .dialog-close { width:34px; height:34px; border:1px solid var(--line); border-radius:10px; background:#fff; cursor:pointer; }
+    .dialog-body { padding:22px 23px 24px; }
+    .usage-meter { padding:15px; border:1px solid #f0d9a8; border-radius:13px; background:#fffaf0; }
+    .usage-meter label { display:flex; justify-content:space-between; gap:12px; font-size:12px; font-weight:750; }
+    .usage-meter input { width:100%; margin-top:12px; accent-color:#e19a17; }
+    .usage-warning { margin:9px 0 0; color:#93630b; font-size:11px; line-height:1.5; }
+    .usage-warning.ready { color:#a14427; font-weight:750; }
+    .handoff-text { width:100%; min-height:210px; margin-top:16px; padding:13px; border:1px solid var(--line); border-radius:12px; color:#344057; font:11.5px/1.55 Consolas,"Malgun Gothic",monospace; resize:vertical; }
+    .dialog-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:13px; }
+    .dialog-actions button, .dialog-actions a { display:inline-flex; min-height:38px; padding:0 14px; align-items:center; border:1px solid var(--line); border-radius:9px; background:#fff; color:#40506a; font-size:11.5px; font-weight:800; text-decoration:none; cursor:pointer; }
+    .dialog-actions .primary { border-color:var(--blue); background:var(--blue); color:#fff; }
+    @media (max-width:1240px) { .cards { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:1000px) { .cards { grid-template-columns:repeat(2,1fr); } .workspace-home { grid-template-columns:1fr; } .quick { display:none; } }
+    @media (max-width:720px) { .shell { display:block; } .sidebar { position:relative; height:auto; padding:17px; } .nav { display:flex; overflow:auto; margin-top:18px; } .nav button { width:auto; white-space:nowrap; } .side-note { display:none; } main { padding:26px 17px 46px; } .topline { align-items:flex-start; flex-direction:column; } .header-tools { width:100%; justify-items:stretch; } .cards { grid-template-columns:1fr; } .workspace-bar { align-items:flex-start; flex-direction:column; } .workspace-actions { width:100%; } .workspace-actions a, .workspace-actions button { flex:1; justify-content:center; } .flow { padding:30px 22px; } .tool-frame { height:76vh; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">PR</span><span>업무 허브<small>ONE WORKSPACE</small></span></div>
+      <nav class="nav" aria-label="업무 도구 분류">
+        <button class="active" data-filter="all">⌂ &nbsp;전체 도구</button>
+        <button data-filter="cost">₩ &nbsp;비용·결의</button>
+        <button data-filter="kol">◇ &nbsp;KOL·계약</button>
+        <button data-filter="report">▤ &nbsp;업무보고</button>
+        <button data-filter="favorite">★ &nbsp;즐겨찾기</button>
+        <button class="handoff-open" id="handoffOpen" type="button">↗ &nbsp;Claude 인계 준비</button>
+      </nav>
+      <div class="side-note">GitHub에 있는 검증된 업무 도구를 한 곳에서 연결합니다.</div>
+    </aside>
+    <main>
+      <header class="topline">
+        <div>
+          <p class="eyebrow">TEAM OPERATIONS</p>
+          <h1>오늘 필요한 업무를<br>한 화면에서 시작하세요.</h1>
+          <p class="lead">지출결의서 작성부터 KOL 단가·계약 관리, 일일 업무보고까지 기존 도구를 찾지 않고 바로 실행합니다.</p>
+        </div>
+        <div class="header-tools">
+          <span class="status">● 5개 도구 연결 확인</span>
+          <label class="search"><span>⌕</span><input id="toolSearch" type="search" placeholder="도구 이름이나 업무 검색" aria-label="업무 도구 검색"></label>
+        </div>
+      </header>
+      <section>
+        <div class="section-head"><h2>주요 업무 도구</h2><p>GitHub Pages 실행 주소 확인 완료</p></div>
+        <div class="cards" id="toolCards">
+          <article class="card" data-id="expense" data-category="cost" data-search="지출결의서 비용 엑셀 xlsx 정산">
+            <button class="favorite" type="button" aria-label="지출결의서 즐겨찾기" data-favorite="expense">☆</button><span class="card-icon">₩</span><h3>지출결의서 자동 생성</h3><p>항목 입력 후 회사 양식에 맞는 XLSX를 내려받습니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="expense">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/Expense-Report" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="cost" data-category="cost kol" data-search="kol 단가 데이터베이스 캠페인 프로젝트 비용 구글 시트">
+            <button class="favorite" type="button" aria-label="KOL 단가 DB 즐겨찾기" data-favorite="cost">☆</button><span class="card-icon">◎</span><h3>KOL 단가 DB</h3><p>인플루언서 단가와 프로젝트별 비용을 빠르게 조회합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="cost">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/campaign_cost" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="contract" data-category="kol" data-search="kol 계약서 인플루언서 콘텐츠 2차 활용 docx 검토">
+            <button class="favorite" type="button" aria-label="KOL 계약서 즐겨찾기" data-favorite="contract">☆</button><span class="card-icon">✦</span><h3>KOL 계약서 관리</h3><p>콘텐츠·2차 활용 계약서를 만들고 조항을 검토합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="contract">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/Contract_Generator" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="report" data-category="report" data-search="업무보고 일일 주차별 pm 메일 엑셀">
+            <button class="favorite" type="button" aria-label="업무보고 즐겨찾기" data-favorite="report">☆</button><span class="card-icon">▤</span><h3>업무보고 생성기</h3><p>일일·주차별 업무를 정리해 메일과 엑셀로 내보냅니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="report">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/work_report2" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="social" data-category="report kol" data-search="인스타그램 유튜브 소셜 지표 조회수 좋아요 댓글 csv">
+            <button class="favorite" type="button" aria-label="소셜 지표 수집기 즐겨찾기" data-favorite="social">☆</button><span class="card-icon">↗</span><h3>소셜 지표 수집기</h3><p>Instagram·YouTube 최근 콘텐츠 지표를 수집해 CSV로 저장합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="social">설치 파일 보기 →</button><a class="source" href="https://github.com/bruceheo0114/social-metrics-team" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="monitoring" data-category="report" data-search="바이탈뷰티 데일리 모니터링 클리핑 기사 워드 docx 보고서 vb">
+            <button class="favorite" type="button" aria-label="바이탈뷰티 데일리 모니터링 즐겨찾기" data-favorite="monitoring">☆</button><span class="card-icon">◆</span><h3>바이탈뷰티 데일리 모니터링</h3><p>수집한 기사 링크로 Daily Monitoring Report DOCX를 만듭니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="monitoring">설치 파일 보기 →</button><a class="source" href="https://github.com/bruceheo0114" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+        </div>
+        <div class="empty-state" id="emptyState">조건에 맞는 도구가 없습니다. 검색어를 바꿔보세요.</div>
+        <div class="workspace" id="workspace">
+          <div class="workspace-bar">
+            <div class="workspace-title"><span id="workspaceIcon">⌂</span><div><strong id="workspaceName">통합 업무 홈</strong><small id="workspaceMeta">도구를 선택하면 아래에서 바로 실행됩니다.</small></div></div>
+            <div class="workspace-actions"><button id="homeBtn" type="button">업무 홈</button><a class="primary" id="externalBtn" href="https://github.com/bruceheo0114" target="_blank" rel="noreferrer">새 창으로 열기</a></div>
+          </div>
+          <div class="workspace-home" id="workspaceHome">
+            <div class="flow"><span class="kicker">RECOMMENDED FLOW</span><h3>단가 확인부터 계약, 비용 처리와 보고까지 연결하세요.</h3><p>각 도구는 기존 GitHub Pages 원본을 그대로 사용합니다. 허브는 입력 내용을 별도 서버에 저장하지 않습니다.</p><div class="steps"><div class="step"><b>1</b><span>KOL 단가 DB에서 예산과 프로젝트 비용 확인</span></div><div class="step"><b>2</b><span>KOL 계약서 관리에서 계약서 생성·검토</span></div><div class="step"><b>3</b><span>지출결의와 업무보고를 엑셀·메일 형식으로 마무리</span></div></div></div>
+            <aside class="quick"><h3>빠른 실행</h3><div class="quick-list"><button type="button" data-launch="expense"><span>지출결의서 작성</span><small>Excel</small></button><button type="button" data-launch="contract"><span>KOL 계약서 생성</span><small>DOCX</small></button><button type="button" data-launch="report"><span>오늘 업무보고</span><small>메일·Excel</small></button><button type="button" data-launch="social"><span>소셜 지표 수집</span><small>확장 프로그램</small></button><button type="button" data-launch="monitoring"><span>데일리 모니터링</span><small>Word 생성기</small></button></div></aside>
+          </div>
+          <iframe class="tool-frame" id="toolFrame" title="선택한 업무 도구" loading="lazy" allow="clipboard-read; clipboard-write"></iframe>
+          <div class="download-panel" id="downloadPanel"><span class="big-icon" id="downloadIcon">↗</span><h3 id="downloadTitle">소셜 지표 수집기 팀용</h3><p id="downloadBody">YouTube 공식 API가 미리 연결된 Chrome·Edge 확장 프로그램입니다. 설치돼 있으면 카드 클릭만으로 수집기 화면이 바로 열립니다.</p><a id="socialDownload" href="assets/social-metrics-team-extension-v2.2.0-team.zip" download>팀용 ZIP 다운로드</a><div class="privacy-note" id="socialStatus">확장 프로그램 연결 확인 중 · Instagram 비밀번호와 쿠키를 별도 서버로 보내지 않습니다.</div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <dialog id="handoffDialog">
+    <div class="dialog-head"><div><h2>Claude 이어하기 패키지</h2><p>일일 사용량이 90%에 가까워지면 아래 내용을 복사해 Claude에 붙여 넣으세요.</p></div><button class="dialog-close" id="handoffClose" type="button" aria-label="닫기">×</button></div>
+    <div class="dialog-body">
+      <div class="usage-meter"><label for="usageRange"><span>오늘 AI 사용량 메모</span><strong id="usageValue">0%</strong></label><input id="usageRange" type="range" min="0" max="100" step="5" value="0"><p class="usage-warning" id="usageWarning">자동 조회 권한은 없어 수동 표시입니다. 90%부터 인계 준비를 권장합니다.</p></div>
+      <textarea class="handoff-text" id="handoffText" aria-label="Claude 인계문">아래 GitHub 저장소를 기준으로 이전 작업을 이어서 진행해줘.
+
+저장소: https://github.com/bruceheo0114/work_db
+먼저 CLAUDE_HANDOFF.md를 읽고, 기존 구조와 동작을 보존해줘.
+
+현재 통합 대상:
+- 지출결의서: https://github.com/bruceheo0114/Expense-Report
+- KOL 단가 DB: https://github.com/bruceheo0114/campaign_cost
+- KOL 계약서: https://github.com/bruceheo0114/Contract_Generator
+- 업무보고: https://github.com/bruceheo0114/work_report2
+- 소셜 지표: https://github.com/bruceheo0114/social-metrics-team
+- 바이탈뷰티 데일리 모니터링: 포털의 assets/vb-daily-monitoring-word-generator-v9.zip (데스크톱 Word 생성기 v9)
+
+해야 할 일:
+1. CLAUDE_HANDOFF.md의 현재 상태와 남은 작업을 확인한다.
+2. 공개 저장소에 API 키나 비밀번호 평문을 올리지 않는다.
+3. 변경 후 각 GitHub Pages 실행 주소와 모바일 화면을 확인한다.
+4. 작업 결과와 이어서 할 일을 CLAUDE_HANDOFF.md에 갱신한다.</textarea>
+      <div class="dialog-actions"><a href="CLAUDE_HANDOFF.md" download>인계문서 다운로드</a><button class="primary" id="handoffCopy" type="button">Claude 인계문 복사</button></div>
+    </div>
+  </dialog>
+  <script>
+    (() => {
+      const TOOLS = {
+        expense: { name:"지출결의서 자동 생성", icon:"₩", meta:"XLSX 지출결의서", url:"https://bruceheo0114.github.io/Expense-Report/" },
+        cost: { name:"KOL 단가 DB", icon:"◎", meta:"단가·프로젝트 비용 조회", url:"https://bruceheo0114.github.io/campaign_cost/" },
+        contract: { name:"KOL 계약서 관리", icon:"✦", meta:"계약서 생성·로컬 검토", url:"https://bruceheo0114.github.io/Contract_Generator/" },
+        report: { name:"업무보고 생성기", icon:"▤", meta:"일일·주차별 보고", url:"https://bruceheo0114.github.io/work_report2/" },
+        social: { name:"소셜 지표 수집기", icon:"↗", meta:"Chrome·Edge 팀용 확장 프로그램", url:"https://github.com/bruceheo0114/social-metrics-team", download:{ title:"소셜 지표 수집기 팀용 v2.2.0", body:"YouTube 공식 API가 미리 연결된 Chrome·Edge 확장 프로그램입니다. 설치돼 있으면 카드 클릭만으로 수집기 화면이 바로 열립니다.", file:"assets/social-metrics-team-extension-v2.2.0-team.zip", label:"팀용 ZIP 다운로드", note:"Instagram 비밀번호와 쿠키를 별도 서버로 보내지 않습니다.", extension:true } },
+        monitoring: { name:"바이탈뷰티 데일리 모니터링", icon:"◆", meta:"Word 생성기 v9 · 데스크톱 실행", url:"https://github.com/bruceheo0114", download:{ title:"바이탈뷰티 데일리 모니터링 Word 생성기 v9", body:"수집한 기사 링크를 붙여 넣으면 회사 양식의 Daily Monitoring Report DOCX를 만들어 줍니다. 압축을 풀고 실행 파일을 더블클릭하면 바로 뜹니다.", file:"assets/vb-daily-monitoring-word-generator-v9.zip", label:"v9 ZIP 다운로드", note:"Python 3.10 이상과 python-docx가 필요합니다. 네이버 API 키는 포함돼 있지 않으니 각자 넣어 주세요." } }
+      };
+      const STORAGE_KEY = "prone-work-hub:favorites:v1";
+      const cards = [...document.querySelectorAll(".card")];
+      const navButtons = [...document.querySelectorAll(".nav button[data-filter]")];
+      const search = document.getElementById("toolSearch");
+      const empty = document.getElementById("emptyState");
+      const frame = document.getElementById("toolFrame");
+      const home = document.getElementById("workspaceHome");
+      const download = document.getElementById("downloadPanel");
+      const external = document.getElementById("externalBtn");
+      const handoffDialog = document.getElementById("handoffDialog");
+      const handoffText = document.getElementById("handoffText");
+      const socialStatus = document.getElementById("socialStatus");
+      let socialExtensionReady = document.documentElement.getAttribute("data-social-metrics-extension") === "ready";
+      let filter = "all";
+      let favorites = new Set();
+      try { favorites = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")); } catch (_) {}
+
+      function updateFavorites() {
+        document.querySelectorAll("[data-favorite]").forEach(button => {
+          const on = favorites.has(button.dataset.favorite);
+          button.classList.toggle("on", on);
+          button.textContent = on ? "★" : "☆";
+          button.setAttribute("aria-pressed", String(on));
+        });
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...favorites])); } catch (_) {}
+      }
+
+      function filterCards() {
+        const query = search.value.trim().toLocaleLowerCase("ko");
+        let shown = 0;
+        cards.forEach(card => {
+          const categoryMatch = filter === "all" || (filter === "favorite" ? favorites.has(card.dataset.id) : card.dataset.category.split(" ").includes(filter));
+          const queryMatch = !query || `${card.textContent} ${card.dataset.search}`.toLocaleLowerCase("ko").includes(query);
+          const visible = categoryMatch && queryMatch;
+          card.classList.toggle("hidden", !visible);
+          if (visible) shown++;
+        });
+        empty.style.display = shown ? "none" : "block";
+      }
+
+      function openHome(updateHash = true) {
+        frame.style.display = "none";
+        frame.removeAttribute("src");
+        download.style.display = "none";
+        home.style.display = "grid";
+        document.getElementById("workspaceIcon").textContent = "⌂";
+        document.getElementById("workspaceName").textContent = "통합 업무 홈";
+        document.getElementById("workspaceMeta").textContent = "도구를 선택하면 아래에서 바로 실행됩니다.";
+        external.href = "https://github.com/bruceheo0114";
+        external.textContent = "GitHub 도구 보기";
+        if (updateHash) history.replaceState(null, "", location.pathname + location.search);
+      }
+
+      function launch(id, updateHash = true) {
+        const tool = TOOLS[id];
+        if (!tool) return openHome(updateHash);
+        document.getElementById("workspaceIcon").textContent = tool.icon;
+        document.getElementById("workspaceName").textContent = tool.name;
+        document.getElementById("workspaceMeta").textContent = tool.meta;
+        external.href = tool.url;
+        external.textContent = tool.download ? "GitHub 저장소 열기" : "새 창으로 열기";
+        home.style.display = "none";
+        if (tool.download) {
+          const pack = tool.download;
+          document.getElementById("downloadIcon").textContent = tool.icon;
+          document.getElementById("downloadTitle").textContent = pack.title;
+          document.getElementById("downloadBody").textContent = pack.body;
+          const link = document.getElementById("socialDownload");
+          link.href = pack.file;
+          link.textContent = pack.label;
+          link.setAttribute("download", "");
+          if (pack.extension) {
+            socialExtensionReady = socialExtensionReady || document.documentElement.getAttribute("data-social-metrics-extension") === "ready";
+            if (socialExtensionReady) document.dispatchEvent(new CustomEvent("social-metrics-open"));
+            socialStatus.textContent = (socialExtensionReady ? "설치된 수집기를 열었습니다. 열리지 않으면 팀용 ZIP을 다시 설치해 주세요. " : "확장 프로그램이 아직 없습니다. 팀용 ZIP을 설치하면 다음부터 여기서 바로 열립니다. ") + pack.note;
+          } else {
+            socialStatus.textContent = pack.note;
+          }
+          frame.style.display = "none";
+          frame.removeAttribute("src");
+          download.style.display = "block";
+        } else {
+          download.style.display = "none";
+          frame.src = tool.url;
+          frame.style.display = "block";
+        }
+        if (updateHash) history.replaceState(null, "", `#${id}`);
+        document.getElementById("workspace").scrollIntoView({ behavior:"smooth", block:"start" });
+      }
+
+      document.addEventListener("click", event => {
+        const launchButton = event.target.closest("[data-launch]");
+        if (launchButton) launch(launchButton.dataset.launch);
+        const favoriteButton = event.target.closest("[data-favorite]");
+        if (favoriteButton) {
+          const id = favoriteButton.dataset.favorite;
+          favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+          updateFavorites(); filterCards();
+        }
+      });
+      navButtons.forEach(button => button.addEventListener("click", () => {
+        filter = button.dataset.filter;
+        navButtons.forEach(item => item.classList.toggle("active", item === button));
+        filterCards();
+      }));
+      search.addEventListener("input", filterCards);
+      document.getElementById("homeBtn").addEventListener("click", () => openHome());
+      document.addEventListener("social-metrics-extension-ready", () => {
+        socialExtensionReady = true;
+        socialStatus.textContent = "소셜 지표 수집기 연결됨 · 포털에서 바로 실행할 수 있습니다.";
+      });
+      document.getElementById("handoffOpen").addEventListener("click", () => handoffDialog.showModal());
+      document.getElementById("handoffClose").addEventListener("click", () => handoffDialog.close());
+      handoffDialog.addEventListener("click", event => { if (event.target === handoffDialog) handoffDialog.close(); });
+      document.getElementById("handoffCopy").addEventListener("click", async event => {
+        try { await navigator.clipboard.writeText(handoffText.value); event.currentTarget.textContent = "복사 완료"; }
+        catch (_) { handoffText.focus(); handoffText.select(); document.execCommand("copy"); event.currentTarget.textContent = "복사 완료"; }
+        setTimeout(() => { event.currentTarget.textContent = "Claude 인계문 복사"; }, 1600);
+      });
+      const usageRange = document.getElementById("usageRange");
+      const usageValue = document.getElementById("usageValue");
+      const usageWarning = document.getElementById("usageWarning");
+      const usageKey = "prone-work-hub:ai-usage-note:v1";
+      try { usageRange.value = localStorage.getItem(usageKey) || "0"; } catch (_) {}
+      const updateUsage = () => {
+        const value = Number(usageRange.value);
+        usageValue.textContent = `${value}%`;
+        usageWarning.classList.toggle("ready", value >= 90);
+        usageWarning.textContent = value >= 90 ? "90%에 도달했습니다. 지금 인계문을 복사해 Claude에서 이어가세요." : "자동 조회 권한은 없어 수동 표시입니다. 90%부터 인계 준비를 권장합니다.";
+        try { localStorage.setItem(usageKey, String(value)); } catch (_) {}
+      };
+      usageRange.addEventListener("input", updateUsage);
+      updateUsage();
+      updateFavorites(); filterCards();
+      const initial = location.hash.slice(1);
+      initial && TOOLS[initial] ? launch(initial, false) : openHome(false);
+    })();
+  </script>
+</body>
+</html>
