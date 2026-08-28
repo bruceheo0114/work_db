@@ -135,7 +135,7 @@
           <p class="lead">지출결의서 작성부터 KOL 단가·계약 관리, 일일 업무보고까지 기존 도구를 찾지 않고 바로 실행합니다.</p>
         </div>
         <div class="header-tools">
-          <span class="status">● 7개 도구 연결 확인</span>
+          <span class="status">● 8개 도구 연결 확인</span>
           <label class="search"><span>⌕</span><input id="toolSearch" type="search" placeholder="도구 이름이나 업무 검색" aria-label="업무 도구 검색"></label>
         </div>
       </header>
@@ -163,6 +163,9 @@
           <article class="card" data-id="monitoring" data-category="report" data-search="바이탈뷰티 데일리 모니터링 클리핑 기사 워드 docx 보고서 vb">
             <button class="favorite" type="button" aria-label="바이탈뷰티 데일리 모니터링 즐겨찾기" data-favorite="monitoring">☆</button><span class="card-icon">◆</span><h3>바이탈뷰티 데일리 모니터링</h3><p>수집한 기사 링크로 Daily Monitoring Report DOCX를 만듭니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="monitoring">설치 파일 보기 →</button><a class="source" href="https://github.com/bruceheo0114" target="_blank" rel="noreferrer">GitHub</a></div>
           </article>
+          <article class="card" data-id="oasis" data-category="report" data-search="오아시스 오아시스마켓 티몬 데일리 모니터링 클리핑 기사 워드 docx 보고서">
+            <button class="favorite" type="button" aria-label="오아시스 데일리 모니터링 즐겨찾기" data-favorite="oasis">☆</button><span class="card-icon">◈</span><h3>오아시스 데일리 모니터링</h3><p>기사 링크로 Daily Monitoring Report DOCX를 만듭니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="oasis">설치 파일 보기 →</button><a class="source" href="https://github.com/bruceheo0114" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
         </div>
         <div class="empty-state" id="emptyState">조건에 맞는 도구가 없습니다. 검색어를 바꿔보세요.</div>
         <div class="workspace" id="workspace">
@@ -172,7 +175,7 @@
           </div>
           <div class="workspace-home" id="workspaceHome">
             <div class="flow"><span class="kicker">RECOMMENDED FLOW</span><h3>단가 확인부터 계약, 비용 처리와 보고까지 연결하세요.</h3><p>각 도구는 기존 GitHub Pages 원본을 그대로 사용합니다. 허브는 입력 내용을 별도 서버에 저장하지 않습니다.</p><div class="steps"><div class="step"><b>1</b><span>KOL 단가 DB에서 예산과 프로젝트 비용 확인</span></div><div class="step"><b>2</b><span>KOL 계약서 관리에서 계약서 생성·검토</span></div><div class="step"><b>3</b><span>지출결의와 업무보고를 엑셀·메일 형식으로 마무리</span></div></div></div>
-            <aside class="quick"><h3>빠른 실행</h3><div class="quick-list"><button type="button" data-launch="expense"><span>지출결의서 작성</span><small>Excel</small></button><button type="button" data-launch="contract"><span>KOL 계약서 생성</span><small>DOCX</small></button><button type="button" data-launch="report"><span>오늘 업무보고</span><small>메일·Excel</small></button><button type="button" data-launch="social"><span>소셜 지표 수집</span><small>확장 프로그램</small></button><button type="button" data-launch="monitoring"><span>데일리 모니터링</span><small>Word 생성기</small></button></div></aside>
+            <aside class="quick"><h3>빠른 실행</h3><div class="quick-list"><button type="button" data-launch="expense"><span>지출결의서 작성</span><small>Excel</small></button><button type="button" data-launch="contract"><span>KOL 계약서 생성</span><small>DOCX</small></button><button type="button" data-launch="report"><span>오늘 업무보고</span><small>메일·Excel</small></button><button type="button" data-launch="social"><span>소셜 지표 수집</span><small>확장 프로그램</small></button><button type="button" data-launch="monitoring"><span>데일리 모니터링</span><small>Word 생성기</small></button><button type="button" data-launch="oasis"><span>오아시스 모니터링</span><small>Word 생성기</small></button></div></aside>
           </div>
           <iframe class="tool-frame" id="toolFrame" title="선택한 업무 도구" loading="lazy" allow="clipboard-read; clipboard-write"></iframe>
           <div class="download-panel" id="downloadPanel"><span class="big-icon" id="downloadIcon">↗</span><h3 id="downloadTitle">소셜 지표 수집기 팀용</h3><p id="downloadBody">YouTube 공식 API가 미리 연결된 Chrome·Edge 확장 프로그램입니다. 설치돼 있으면 카드 클릭만으로 수집기 화면이 바로 열립니다.</p><a id="socialDownload" href="assets/social-metrics-team-extension-v2.2.0-team.zip" download>팀용 ZIP 다운로드</a><div class="privacy-note" id="socialStatus">확장 프로그램 연결 확인 중 · Instagram 비밀번호와 쿠키를 별도 서버로 보내지 않습니다.</div></div>
@@ -215,7 +218,8 @@
         contract: { name:"KOL 계약서 관리", icon:"✦", meta:"계약서 생성·로컬 검토", url:"https://bruceheo0114.github.io/Contract_Generator/" },
         report: { name:"업무보고 생성기", icon:"▤", meta:"일일·주차별 보고", url:"https://bruceheo0114.github.io/work_report2/" },
         social: { name:"소셜 지표 수집기", icon:"↗", meta:"Chrome·Edge 팀용 확장 프로그램", url:"https://github.com/bruceheo0114/social-metrics-team", download:{ title:"소셜 지표 수집기 팀용 v2.2.0", body:"YouTube 공식 API가 미리 연결된 Chrome·Edge 확장 프로그램입니다. 설치돼 있으면 카드 클릭만으로 수집기 화면이 바로 열립니다.", file:"assets/social-metrics-team-extension-v2.2.0-team.zip", label:"팀용 ZIP 다운로드", note:"Instagram 비밀번호와 쿠키를 별도 서버로 보내지 않습니다.", extension:true } },
-        monitoring: { name:"바이탈뷰티 데일리 모니터링", icon:"◆", meta:"Word 생성기 v9 · 데스크톱 실행", url:"https://github.com/bruceheo0114", download:{ title:"바이탈뷰티 데일리 모니터링 Word 생성기 v9", body:"수집한 기사 링크를 붙여 넣으면 회사 양식의 Daily Monitoring Report DOCX를 만들어 줍니다. 압축을 풀고 실행 파일을 더블클릭하면 바로 뜹니다.", file:"assets/vb-daily-monitoring-word-generator-v9.zip", label:"v9 ZIP 다운로드", note:"Python 3.10 이상과 python-docx가 필요합니다. 네이버 API 키는 포함돼 있지 않으니 각자 넣어 주세요." } }
+        monitoring: { name:"바이탈뷰티 데일리 모니터링", icon:"◆", meta:"Word 생성기 v9 · 데스크톱 실행", url:"https://github.com/bruceheo0114", download:{ title:"바이탈뷰티 데일리 모니터링 Word 생성기 v9", body:"수집한 기사 링크를 붙여 넣으면 회사 양식의 Daily Monitoring Report DOCX를 만들어 줍니다. 압축을 풀고 실행 파일을 더블클릭하면 바로 뜹니다.", file:"assets/vb-daily-monitoring-word-generator-v9.zip", label:"v9 ZIP 다운로드", note:"Python 3.10 이상과 python-docx가 필요합니다. 네이버 API 키는 포함돼 있지 않으니 각자 넣어 주세요." } },
+        oasis: { name:"오아시스 데일리 모니터링", icon:"◈", meta:"Word 생성기 v1.0 · 데스크톱 실행", url:"https://github.com/bruceheo0114", download:{ title:"오아시스마켓 데일리 모니터링 Word 생성기 v1.0", body:"기사 링크를 붙여 넣으면 Daily Monitoring Report_OASIS 워드 파일을 만들어 줍니다. 자사·경쟁사·업계 분류와 요약 초안까지 자동으로 잡습니다.", file:"assets/oasis-daily-monitoring-word-generator-v1.0.zip", label:"v1.0 ZIP 다운로드", note:"Python 3.11 이상이 필요합니다. 분류와 요약은 초안이니 Word에서 확인하고 보내세요." } }
       };
       const STORAGE_KEY = "prone-work-hub:favorites:v1";
       const cards = [...document.querySelectorAll(".card")];
