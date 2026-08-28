@@ -135,7 +135,7 @@
           <p class="lead">지출결의서 작성부터 KOL 단가·계약 관리, 일일 업무보고까지 기존 도구를 찾지 않고 바로 실행합니다.</p>
         </div>
         <div class="header-tools">
-          <span class="status">● 6개 도구 연결 확인</span>
+          <span class="status">● 7개 도구 연결 확인</span>
           <label class="search"><span>⌕</span><input id="toolSearch" type="search" placeholder="도구 이름이나 업무 검색" aria-label="업무 도구 검색"></label>
         </div>
       </header>
@@ -146,7 +146,10 @@
             <button class="favorite" type="button" aria-label="지출결의서 즐겨찾기" data-favorite="expense">☆</button><span class="card-icon">₩</span><h3>지출결의서 자동 생성</h3><p>항목 입력 후 회사 양식에 맞는 XLSX를 내려받습니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="expense">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/Expense-Report" target="_blank" rel="noreferrer">GitHub</a></div>
           </article>
           <article class="card" data-id="cost" data-category="cost kol" data-search="kol 단가 데이터베이스 캠페인 프로젝트 비용 구글 시트">
-            <button class="favorite" type="button" aria-label="KOL 단가 DB 즐겨찾기" data-favorite="cost">☆</button><span class="card-icon">◎</span><h3>KOL 단가 DB</h3><p>인플루언서 단가와 프로젝트별 비용을 빠르게 조회합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="cost">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/campaign_cost" target="_blank" rel="noreferrer">GitHub</a></div>
+            <button class="favorite" type="button" aria-label="프로젝트 단가 DB 즐겨찾기" data-favorite="cost">☆</button><span class="card-icon">◎</span><h3>프로젝트 단가 DB</h3><p>프로젝트별 집행 비용을 빠르게 조회합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="cost">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/campaign_cost" target="_blank" rel="noreferrer">GitHub</a></div>
+          </article>
+          <article class="card" data-id="koldb" data-category="kol cost" data-search="kol 통합 db 인플루언서 단가 청구가 실비 제안가 집행가 메타그린 이너뷰티 오설록 onedrive">
+            <button class="favorite" type="button" aria-label="KOL 통합 DB 즐겨찾기" data-favorite="koldb">☆</button><span class="card-icon">⌸</span><h3>KOL 통합 DB</h3><p>메타그린·이너뷰티·오설록 KOL을 한 파일로 모은 내부용 DB입니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="koldb">받는 곳 보기 →</button><span class="source">사내 전용</span></div>
           </article>
           <article class="card" data-id="contract" data-category="kol" data-search="kol 계약서 인플루언서 콘텐츠 2차 활용 docx 검토">
             <button class="favorite" type="button" aria-label="KOL 계약서 즐겨찾기" data-favorite="contract">☆</button><span class="card-icon">✦</span><h3>KOL 계약서 관리</h3><p>콘텐츠·2차 활용 계약서를 만들고 조항을 검토합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="contract">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/Contract_Generator" target="_blank" rel="noreferrer">GitHub</a></div>
@@ -188,7 +191,8 @@
 
 현재 통합 대상:
 - 지출결의서: https://github.com/bruceheo0114/Expense-Report
-- KOL 단가 DB: https://github.com/bruceheo0114/campaign_cost
+- 프로젝트 단가 DB: https://github.com/bruceheo0114/campaign_cost
+- KOL 통합 DB: 사내 OneDrive 배포(공개 저장소에 올리지 않는다)
 - KOL 계약서: https://github.com/bruceheo0114/Contract_Generator
 - 업무보고: https://github.com/bruceheo0114/work_report2
 - 소셜 지표: https://github.com/bruceheo0114/social-metrics-team
@@ -206,7 +210,8 @@
     (() => {
       const TOOLS = {
         expense: { name:"지출결의서 자동 생성", icon:"₩", meta:"XLSX 지출결의서", url:"https://bruceheo0114.github.io/Expense-Report/" },
-        cost: { name:"KOL 단가 DB", icon:"◎", meta:"단가·프로젝트 비용 조회", url:"https://bruceheo0114.github.io/campaign_cost/" },
+        cost: { name:"프로젝트 단가 DB", icon:"◎", meta:"프로젝트별 비용 조회", url:"https://bruceheo0114.github.io/campaign_cost/" },
+        koldb: { name:"KOL 통합 DB", icon:"⌸", meta:"OneDrive 배포 · 사내 권한 필요", url:"https://prone365.sharepoint.com/:u:/s/SE5/IQA9ofHv4w5FRK35fh04ke9wAT2CBC081r30eqxpNOq4RXQ?e=14zO8Z", download:{ title:"피알원 KOL 통합 DB", body:"메타그린·이너뷰티·오설록 KOL을 한 파일로 모은 내부용 DB입니다. 내려받아 더블클릭하면 브라우저에서 바로 열립니다.", file:"https://prone365.sharepoint.com/:u:/s/SE5/IQA9ofHv4w5FRK35fh04ke9wAT2CBC081r30eqxpNOq4RXQ?e=14zO8Z", label:"OneDrive에서 열기", note:"사내 OneDrive 권한이 있는 계정만 받을 수 있습니다. 내부용 자료이니 외부로 재배포하지 마세요.", external:true } },
         contract: { name:"KOL 계약서 관리", icon:"✦", meta:"계약서 생성·로컬 검토", url:"https://bruceheo0114.github.io/Contract_Generator/" },
         report: { name:"업무보고 생성기", icon:"▤", meta:"일일·주차별 보고", url:"https://bruceheo0114.github.io/work_report2/" },
         social: { name:"소셜 지표 수집기", icon:"↗", meta:"Chrome·Edge 팀용 확장 프로그램", url:"https://github.com/bruceheo0114/social-metrics-team", download:{ title:"소셜 지표 수집기 팀용 v2.2.0", body:"YouTube 공식 API가 미리 연결된 Chrome·Edge 확장 프로그램입니다. 설치돼 있으면 카드 클릭만으로 수집기 화면이 바로 열립니다.", file:"assets/social-metrics-team-extension-v2.2.0-team.zip", label:"팀용 ZIP 다운로드", note:"Instagram 비밀번호와 쿠키를 별도 서버로 보내지 않습니다.", extension:true } },
@@ -272,7 +277,7 @@
         document.getElementById("workspaceName").textContent = tool.name;
         document.getElementById("workspaceMeta").textContent = tool.meta;
         external.href = tool.url;
-        external.textContent = tool.download ? "GitHub 저장소 열기" : "새 창으로 열기";
+        external.textContent = tool.download ? (tool.download.external ? "OneDrive 열기" : "GitHub 저장소 열기") : "새 창으로 열기";
         home.style.display = "none";
         if (tool.download) {
           const pack = tool.download;
@@ -282,7 +287,15 @@
           const link = document.getElementById("socialDownload");
           link.href = pack.file;
           link.textContent = pack.label;
-          link.setAttribute("download", "");
+          if (pack.external) {
+            link.removeAttribute("download");
+            link.target = "_blank";
+            link.rel = "noreferrer";
+          } else {
+            link.setAttribute("download", "");
+            link.removeAttribute("target");
+            link.removeAttribute("rel");
+          }
           if (pack.extension) {
             socialExtensionReady = socialExtensionReady || document.documentElement.getAttribute("data-social-metrics-extension") === "ready";
             if (socialExtensionReady) document.dispatchEvent(new CustomEvent("social-metrics-open"));
