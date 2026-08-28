@@ -146,7 +146,7 @@
             <button class="favorite" type="button" aria-label="지출결의서 즐겨찾기" data-favorite="expense">☆</button><span class="card-icon">₩</span><h3>지출결의서 자동 생성</h3><p>항목 입력 후 회사 양식에 맞는 XLSX를 내려받습니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="expense">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/Expense-Report" target="_blank" rel="noreferrer">GitHub</a></div>
           </article>
           <article class="card" data-id="cost" data-category="cost kol" data-search="kol 단가 데이터베이스 캠페인 프로젝트 비용 구글 시트">
-            <button class="favorite" type="button" aria-label="프로젝트 단가 DB 즐겨찾기" data-favorite="cost">☆</button><span class="card-icon">◎</span><h3>프로젝트 단가 DB</h3><p>프로젝트별 집행 비용을 빠르게 조회합니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="cost">여기서 실행 →</button><a class="source" href="https://github.com/bruceheo0114/campaign_cost" target="_blank" rel="noreferrer">GitHub</a></div>
+            <button class="favorite" type="button" aria-label="프로젝트 단가 DB 즐겨찾기" data-favorite="cost">☆</button><span class="card-icon">◎</span><h3>프로젝트 단가 DB</h3><p>프로젝트별 원가·청구가를 조회하는 사내 배포 파일입니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="cost">받는 곳 보기 →</button><span class="source">사내 전용</span></div>
           </article>
           <article class="card" data-id="koldb" data-category="kol cost" data-search="kol 통합 db 인플루언서 단가 청구가 실비 제안가 집행가 메타그린 이너뷰티 오설록 onedrive">
             <button class="favorite" type="button" aria-label="KOL 통합 DB 즐겨찾기" data-favorite="koldb">☆</button><span class="card-icon">⌸</span><h3>KOL 통합 DB</h3><p>메타그린·이너뷰티·오설록 KOL을 한 파일로 모은 내부용 DB입니다.</p><div class="card-actions"><button class="launch" type="button" data-launch="koldb">받는 곳 보기 →</button><span class="source">사내 전용</span></div>
@@ -191,7 +191,7 @@
 
 현재 통합 대상:
 - 지출결의서: https://github.com/bruceheo0114/Expense-Report
-- 프로젝트 단가 DB: https://github.com/bruceheo0114/campaign_cost
+- 프로젝트 단가 DB: 사내 OneDrive 배포(공개 저장소는 안내 페이지만 둔다)
 - KOL 통합 DB: 사내 OneDrive 배포(공개 저장소에 올리지 않는다)
 - KOL 계약서: https://github.com/bruceheo0114/Contract_Generator
 - 업무보고: https://github.com/bruceheo0114/work_report2
@@ -210,7 +210,7 @@
     (() => {
       const TOOLS = {
         expense: { name:"지출결의서 자동 생성", icon:"₩", meta:"XLSX 지출결의서", url:"https://bruceheo0114.github.io/Expense-Report/" },
-        cost: { name:"프로젝트 단가 DB", icon:"◎", meta:"프로젝트별 비용 조회", url:"https://bruceheo0114.github.io/campaign_cost/" },
+        cost: { name:"프로젝트 단가 DB", icon:"◎", meta:"OneDrive 배포 · 사내 권한 필요", url:"https://prone365.sharepoint.com/:u:/s/SE5/IQAd_6It1nyFSLVJkJW3SwbhATkib2N-TJPHIEJxLdqMoMc?e=tbnuzq", download:{ title:"피알원 프로젝트 단가 DB", body:"프로젝트별 원가와 청구가를 조회하는 도구입니다. 데이터가 파일 안에 들어 있어 시트 연결 없이 열립니다.", file:"https://prone365.sharepoint.com/:u:/s/SE5/IQAd_6It1nyFSLVJkJW3SwbhATkib2N-TJPHIEJxLdqMoMc?e=tbnuzq", label:"OneDrive에서 열기", note:"사내 OneDrive 권한이 있는 계정만 받을 수 있습니다. 내부용 자료이니 외부로 재배포하지 마세요.", external:true } },
         koldb: { name:"KOL 통합 DB", icon:"⌸", meta:"OneDrive 배포 · 사내 권한 필요", url:"https://prone365.sharepoint.com/:u:/s/SE5/IQA9ofHv4w5FRK35fh04ke9wAT2CBC081r30eqxpNOq4RXQ?e=14zO8Z", download:{ title:"피알원 KOL 통합 DB", body:"메타그린·이너뷰티·오설록 KOL을 한 파일로 모은 내부용 DB입니다. 내려받아 더블클릭하면 브라우저에서 바로 열립니다.", file:"https://prone365.sharepoint.com/:u:/s/SE5/IQA9ofHv4w5FRK35fh04ke9wAT2CBC081r30eqxpNOq4RXQ?e=14zO8Z", label:"OneDrive에서 열기", note:"사내 OneDrive 권한이 있는 계정만 받을 수 있습니다. 내부용 자료이니 외부로 재배포하지 마세요.", external:true } },
         contract: { name:"KOL 계약서 관리", icon:"✦", meta:"계약서 생성·로컬 검토", url:"https://bruceheo0114.github.io/Contract_Generator/" },
         report: { name:"업무보고 생성기", icon:"▤", meta:"일일·주차별 보고", url:"https://bruceheo0114.github.io/work_report2/" },
